@@ -24,14 +24,16 @@ import com.backendless.exceptions.BackendlessFault;
 import static com.backendless.rt.RTTypes.log;
 
 public class ApplicantActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener
+{
 
     Fragment contentFragment = null;
 
     String APP_ID;
     String API_KEY;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         APP_ID = getString(R.string.APP_ID);
         API_KEY = getString(R.string.API_KEY);
@@ -41,18 +43,19 @@ public class ApplicantActivity extends AppCompatActivity
         BackendlessUser user = new BackendlessUser();
         user.setEmail("Billy@insufficient-light.com");
         user.setPassword("CorrectHorseBatteryStaple");
+        Log.i("Registration", "Calling Backendless");
         Backendless.UserService.register(user, new AsyncCallback<BackendlessUser>()
         {
             @Override
             public void handleResponse(BackendlessUser response)
             {
-                Log.i("user", response.getEmail()+ "You've been registered dipshit");
+                Log.i("user", response.getEmail()+ "You've been registered");
             }
 
             @Override
             public void handleFault(BackendlessFault fault)
             {
-                Log.e("Backendless Error", fault.getMessage());
+                Log.e("Back end less Error", fault.getMessage());
             }
         });
         setContentView(R.layout.activity_applicant);
@@ -63,7 +66,7 @@ public class ApplicantActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "*Confused Screaming*   ", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
