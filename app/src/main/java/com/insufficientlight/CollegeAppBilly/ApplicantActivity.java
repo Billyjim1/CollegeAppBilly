@@ -1,5 +1,7 @@
 package com.insufficientlight.CollegeAppBilly;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
@@ -31,6 +34,8 @@ public class ApplicantActivity extends AppCompatActivity
 
     String APP_ID;
     String API_KEY;
+    private final String MY_EMAIL_ADDRESS = "42Billys@gmail.com";
+    public  final static String EMAIL_PREF ="";
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -49,13 +54,13 @@ public class ApplicantActivity extends AppCompatActivity
             @Override
             public void handleResponse(BackendlessUser response)
             {
-                Log.i("user", response.getEmail()+ "You've been registered");
+                Log.i("user", response.getEmail()+ " You've been registered");
             }
 
             @Override
             public void handleFault(BackendlessFault fault)
             {
-                Log.e("Back end less Error", fault.getMessage());
+                Log.e("Backendless Error", fault.getMessage());
             }
         });
         setContentView(R.layout.activity_applicant);
@@ -79,6 +84,13 @@ public class ApplicantActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        SharedPreferences sharedPreferences =
+                this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(EMAIL_PREF, MY_EMAIL_ADDRESS);
+        editor.commit();
+
 
 
     }
@@ -142,5 +154,5 @@ public class ApplicantActivity extends AppCompatActivity
     //Caught in a land slide
     //No escape from reality
     //Open your eyes
-    //Look up to the sky's and see
+    //Look up to the skys and see
 }
