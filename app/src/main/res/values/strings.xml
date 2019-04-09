@@ -8,4 +8,5 @@
     <string name="action_settings">Settings</string>
     <string name="profile">Profile</string>
     <string name="family_member">Family Member</string>
+    <string name="family_memeber_title">familyListFragment</string>
 </resources>

@@ -82,8 +82,10 @@ public class ProfileFragment extends Fragment
    public void onActivityResult(int requestCode, int resultCode, Intent intent)
    {
         Log.i("ProfileFragment", "" + requestCode + " " + resultCode);
-        if (resultCode == Activity.RESULT_OK){
-            if (requestCode == REQUEST_DATE_OF_BIRTH){
+        if (resultCode == Activity.RESULT_OK)
+        {
+            if (requestCode == REQUEST_DATE_OF_BIRTH)
+            {
                 mProfile.dateOfBirth = (Date)intent.getSerializableExtra(DatePickerFragment.EXTRA_DATE_OF_BIRTH);
                 Log.i("ProfileFragment", mProfile.dateOfBirth.toString());
                 DatePickerButton.setText(mProfile.dateOfBirth.toString());
