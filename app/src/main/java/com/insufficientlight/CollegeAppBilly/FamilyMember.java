@@ -34,10 +34,16 @@ public abstract class FamilyMember
         }
     }
 
-   public FamilyMember()
-   {
+    public FamilyMember()
+    {
         mFirstName = "Family";
         lastName = "Member";
-   }
+    }
+
+    public FamilyMember(String firstName, String lastName)
+    {
+        mFirstName = firstName;
+        this.lastName = lastName;
+    }
 
 }
