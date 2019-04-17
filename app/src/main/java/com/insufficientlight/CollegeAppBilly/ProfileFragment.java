@@ -17,7 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.backendless.Backendless;
-import com.backendless.BackendlessCollection;
+//import com.backendless.BackendlessCollection;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.async.callback.BackendlessCallback;
 import com.backendless.exceptions.BackendlessFault;
@@ -30,7 +30,8 @@ import java.util.GregorianCalendar;
 
 import static com.backendless.media.video.CodecManager.TAG;
 
-public class ProfileFragment extends Fragment{
+public class ProfileFragment extends Fragment
+{
 
     public static final int REQUEST_DATE_OF_BIRTH = 0;
 
@@ -43,43 +44,52 @@ public class ProfileFragment extends Fragment{
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         mProfile = new Profile();
         SharedPreferences sharedPreferences =
                 getActivity().getPreferences(Context.MODE_PRIVATE);
         String email = sharedPreferences.getString(ApplicantActivity.EMAIL_PREF, null);
-        if (mProfile.getEmail() == null) {
+        if (mProfile.getEmail() == null)
+        {
             mProfile.setEmail(email);
         }
         String whereClause = "email = '" + email + "'";
         BackendlessDataQuery query = new BackendlessDataQuery();
         query.setWhereClause(whereClause);
-        Backendless.Persistence.of(Profile.class).find(query, new
-                AsyncCallback<BackendlessCollection<Profile>>() {
+        /**Backendless.Persistence.of(Profile.class).find(query, new
+                AsyncCallback<BackendlessCollection<Profile>>()
+                {
                     @Override
-                    public void handleResponse(BackendlessCollection<Profile> response) {
-                        if (!response.getData().isEmpty()) {
+                    public void handleResponse(BackendlessCollection<Profile> response)
+                    {
+                        if (!response.getData().isEmpty())
+                        {
                             mProfile = response.getData().get(0);
                             mFirstNameTextView.setText(response.getData().get(0).getFirstName());
                             mLastNameTextView.setText(response.getData().get(0).getLastName());
                             Date birthday = response.getData().get(0).getBirthday();
-                            try {
+                            try
+                            {
                                 Date formattedBirthday = new SimpleDateFormat("yyyy-MM-dd").parse(birthday.toString());
                                 mBirthdayButton.setText(formattedBirthday.toString());
-                            } catch (ParseException e) {
+                            } catch (ParseException e)
+                            {
                                 e.printStackTrace();
                             }
                             Log.i(TAG, "Got profile: " + response.getData().get(0).objectId);
+
                         }
                     }
 
                     @Override
-                    public void handleFault(BackendlessFault fault) {
+                    public void handleFault(BackendlessFault fault)
+                    {
                         Log.e(TAG, "Failed to find profile: " + fault.getMessage());
 
                     }
-                });
+                });**/
         formatter = new SimpleDateFormat("MM/dd/yyyy");
 
         mFirstNameTextView = (TextView) rootView.findViewById(R.id.profile_first_name);
@@ -88,19 +98,24 @@ public class ProfileFragment extends Fragment{
         mLastNameEditText = (EditText) rootView.findViewById(R.id.profile_last_name_edit);
         mBirthdayButton = (Button) rootView.findViewById(R.id.birthday_picker_button);
         mSubmitButton = (Button) rootView.findViewById(R.id.profile_submit_button);
-        if (mProfile.getFirstName() != null) {
+
+        if (mProfile.getFirstName() != null)
+        {
             mFirstNameTextView.setText(mProfile.getFirstName());
             mLastNameTextView.setText(mProfile.getLastName());
             mBirthdayButton.setText(formatter.format(mProfile.getBirthday()));
         }
-        else{
+        else
+            {
             mFirstNameTextView.setText("Enter First Name:");
             mLastNameTextView.setText("Enter Last Name:");
         }
 
-        mBirthdayButton.setOnClickListener(new View.OnClickListener() {
+        mBirthdayButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 DatePickerFragment dialog;
                 dialog = DatePickerFragment.newInstance(mProfile.getBirthday());
@@ -109,26 +124,33 @@ public class ProfileFragment extends Fragment{
             }
         });
 
-        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+        mSubmitButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-                if (mFirstNameEditText.getText().length() > 0){
+            public void onClick(View v)
+            {
+                if (mFirstNameEditText.getText().length() > 0)
+                {
                     String firstName = mFirstNameEditText.getText().toString();
                     mProfile.setFirstName(firstName);
                     mFirstNameTextView.setText(firstName);
                     mFirstNameEditText.setText("");
                 }
 
-                if(mLastNameEditText.getText().length() > 0){
+                if(mLastNameEditText.getText().length() > 0)
+                {
                     String lastName = mLastNameEditText.getText().toString();
                     mProfile.setLastName(lastName);
                     mLastNameTextView.setText(lastName);
                     mLastNameEditText.setText("");
                 }
-                if (mProfile.getFirstName() != null && mProfile.getLastName()!= null){
-                    Backendless.Persistence.save(mProfile, new BackendlessCallback<Profile>() {
+                if (mProfile.getFirstName() != null && mProfile.getLastName()!= null)
+                {
+                    Backendless.Persistence.save(mProfile, new BackendlessCallback<Profile>()
+                    {
                         @Override
-                        public void handleResponse(Profile response) {
+                        public void handleResponse(Profile response)
+                        {
                             Log.i("Backendless", "Saved profile to Backendless " + response.objectId);
                         }
                     });
@@ -142,23 +164,27 @@ public class ProfileFragment extends Fragment{
     }
 
     @Override
-    public void onStart(){
+    public void onStart()
+    {
         super.onStart();
 
     }
 
     @Override
-    public void onPause(){
+    public void onPause()
+    {
         super.onPause();
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         if(resultCode != Activity.RESULT_OK){
             return;
         }
 
-        if(requestCode == REQUEST_DATE_OF_BIRTH){
+        if(requestCode == REQUEST_DATE_OF_BIRTH)
+        {
             Date date = (Date)(data.getSerializableExtra(DatePickerFragment.EXTRA_DATE_OF_BIRTH));
             mProfile.setBirthday(date);
             mBirthdayButton.setText(formatter.format(mProfile.getBirthday()));

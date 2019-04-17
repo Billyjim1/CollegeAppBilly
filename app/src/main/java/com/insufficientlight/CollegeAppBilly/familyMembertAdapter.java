@@ -1,4 +1,5 @@
 package com.insufficientlight.CollegeAppBilly;
 
-public class familyMembertAdapter {
+public class familyMembertAdapter
+{
 }

@@ -1,56 +1,59 @@
 package com.insufficientlight.CollegeAppBilly;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
-public class Profile
-{
+/**
+ * Created by simmonsj05 on 1/15/17.
+ */
+public class Profile {
 
-    String lastName;
-    String firstName;
-    Date dateOfBirth;
-    String objectId;
-    String email;
+    private String firstName, lastName;
+    private Date birthday;
+    private String mEmail;
+    public String objectId;
+
 
     public String getEmail() {
-        return email;
+        return mEmail;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        mEmail = email;
     }
 
-    public String getLastName()
-    {
-        return lastName;
+    public void Profile() {
+        birthday = new GregorianCalendar(1986, 5, 15).getTime();
     }
 
-    public void setLastName(String lastName)
-    {
-        this.lastName = lastName;
-    }
-
-    public String getFirstName()
-    {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName)
-    {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    public Profile()
-    {
-        dateOfBirth = new Date();
-    }
-    public String getObjectId()
-    {
-        return objectId;
+
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setObjectId(String objectId)
-    {
-        this.objectId = objectId;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
+    public Date getBirthday() {
+        if (birthday != null)
+        {
+            return birthday;
+        }
+        else{
+            birthday = new GregorianCalendar(1986, 5, 15).getTime();
+            return birthday;
+        }
+    }
 
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 }

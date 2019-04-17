@@ -1,20 +1,46 @@
 package com.insufficientlight.CollegeAppBilly;
 
+/**
+ * Created by simmonsj05 on 1/15/17.
+ */
 public abstract class FamilyMember
 {
 
+    public static final String EXTRA_RELATION = "org.pltw.examples.collegeapp.relation";
+    public static final String EXTRA_INDEX = "org.pltw.examples.collegeapp.index";
+    public FamilyMember()
+    {
+        this.firstName = "Default";
+        this.lastName = "Constructor";
+    }
 
-    String mFirstName;
-    String lastName;
+    public FamilyMember(String firstName, String lastName)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    private String firstName, lastName;
+    private String mEmail;
+
+    public String getEmail()
+    {
+        return mEmail;
+    }
+
+    public void setEmail(String email)
+    {
+        mEmail = email;
+    }
 
     public String getFirstName()
     {
-        return mFirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName)
     {
-        mFirstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName()
@@ -26,24 +52,27 @@ public abstract class FamilyMember
     {
         this.lastName = lastName;
     }
-    public void testMethod()
+
+    @Override
+    public boolean equals(Object o)
     {
-        if (mFirstName == "test")
+        if ((o instanceof Guardian) && (this instanceof Guardian))
         {
-            mFirstName = "hello world";
+
+            if (((Guardian)o).getFirstName().equals(this.getFirstName()) && ((Guardian)o).getLastName().equals(this.getLastName()))
+            {
+                return true;
+            }
         }
-    }
+        else if ((o instanceof Sibling) && (this instanceof Sibling))
+        {
 
-    public FamilyMember()
-    {
-        mFirstName = "Family";
-        lastName = "Member";
-    }
-
-    public FamilyMember(String firstName, String lastName)
-    {
-        mFirstName = firstName;
-        this.lastName = lastName;
+            if (((Sibling)o).getFirstName().equals(this.getFirstName())&& ((Sibling)o).getLastName().equals(this.getLastName()))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
